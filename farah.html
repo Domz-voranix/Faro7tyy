@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic New Year for Farah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&family=Sacramento&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif; /* تغيير الخط الافتراضي للعربية */
+            background: linear-gradient(to bottom, #ffe6f0, #ffffff);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .floating-element {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .heart { color: #ff69b4; font-size: 2rem; }
+        .teddy { font-size: 3rem; }
+        .sparkle { color: gold; font-size: 1.5rem; }
+        .balloon { color: #ffb6c1; font-size: 2.5rem; }
+
+        #start-button {
+            background: linear-gradient(45deg, #ff69b4, #ffb6c1);
+            border: none;
+            border-radius: 50px;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Pacifico', cursive;
+        }
+
+        #start-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.7);
+        }
+
+        #countdown-section {
+            display: none;
+            text-align: center;
+            color: #d63384;
+        }
+
+        #countdown-text {
+            font-family: 'Cairo', sans-serif; /* خط عربي للنصوص الرومانسية */
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        #countdown-timer {
+            font-size: 2rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #surprise-button {
+            display: none;
+            background: linear-gradient(45deg, #ff69b4, #ffb6c1);
+            border: none;
+            border-radius: 50px;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Pacifico', cursive;
+        }
+
+        #surprise-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.7);
+        }
+
+        #celebration-section {
+            display: none;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* عرض الصور في flexbox مع موقع أسفل */
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px; /* زيادة المسافة لتجنب التراكم */
+            position: absolute;
+            top: 60%; /* تغيير الموقع ليكون أسفل النص والعداد */
+            left: 10%;
+            right: 10%;
+            animation: slideIn 2s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .photo-item {
+            width: 150px; /* حجم ثابت للصور */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .video-item {
+            width: 200px; /* حجم ثابت للفيديو */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        #envelope {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(to bottom, #f8f8f8, #e0e0e0);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #envelope:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        #envelope-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cairo', sans-serif; /* خط عربي للعنوان */
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        #message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-family: 'Sacramento', cursive; /* خط رومانسي للرسالة */
+            font-size: 1.2rem;
+            color: #d63384;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: gold;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            #start-button, #surprise-button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+            #countdown-text {
+                font-size: 1.2rem;
+            }
+            #countdown-timer {
+                font-size: 1.5rem;
+            }
+            #envelope {
+                width: 150px;
+                height: 120px;
+            }
+            #message {
+                font-size: 1rem;
+                padding: 15px;
+            }
+            .photo-grid {
+                top: 70%; /* موقع أعلى في الشاشات الصغيرة */
+                gap: 15px; /* تقليل المسافة في الشاشات الصغيرة */
+            }
+            .photo-item {
+                width: 100px;
+            }
+            .video-item {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Initial Landing Page -->
+    <div id="landing-section">
+        <button id="start-button">TAP TO START ❤️</button>
+        <!-- Floating Elements -->
+        <div class="floating-element heart" style="top: 10%; left: 20%;">♥</div>
+        <div class="floating-element teddy" style="top: 20%; right: 15%;">🧸</div>
+        <div class="floating-element sparkle" style="top: 30%; left: 10%;">✨</div>
+        <div class="floating-element balloon" style="top: 40%; right: 20%;">🎈</div>
+        <div class="floating-element heart" style="top: 50%; left: 30%;">♥</div>
+        <div class="floating-element sparkle" style="top: 60%; right: 10%;">✨</div>
+        <div class="floating-element teddy" style="top: 70%; left: 15%;">🧸</div>
+        <div class="floating-element balloon" style="top: 80%; right: 25%;">🎈</div>
+    </div>
+
+    <!-- Countdown Section -->
+    <div id="countdown-section">
+        <div id="countdown-text">
+            قطتي وبنتي ومراتي وحبيبتي وصاحبتي وكل حاجه ليا ف الدنيا ♥️🫂<br>
+            سنة جديدة داخلة علينا وسنة جديدة لينا مع بعض 💖<br>
+            يارب تكون سنة حلوة لينا ونقرب من حلمنا إن إحنا نكون مع بعض يا قطوستي 🥰
+        </div>
+        <div id="countdown-timer"></div>
+        <!-- Floating Elements -->
+        <div class="floating-element heart" style="top: 10%; left: 20%;">♥</div>
+        <div class="floating-element teddy" style="top: 20%; right: 15%;">🧸</div>
+        <div class="floating-element sparkle" style="top: 30%; left: 10%;">✨</div>
+        <div class="floating-element balloon" style="top: 40%; right: 20%;">🎈</div>
+        <!-- عرض الصور في flexbox -->
+        <div class="photo-grid">
+            <img class="photo-item" src="صوره 1.jpg" alt="Photo of Farah and Adham">
+            <img class="photo-item" src="صوره 2.jpg" alt="Photo of Farah and Adham">
+            <video class="video-item" autoplay loop muted>
+                <source src="الفيديو.mp4" type="video/mp4">
+            </video>
+            <!-- أضف المزيد من الصور/فيديوهات هنا -->
+        </div>
+    </div>
+
+    <!-- Surprise Button -->
+    <button id="surprise-button">OPEN YOUR SURPRISE 🎁</button>
+
+    <!-- Celebration Section -->
+    <div id="celebration-section">
+        <!-- عرض الصور في flexbox -->
+        <div class="photo-grid">
+            <img class="photo-item" src="صوره 1.jpg" alt="Photo">
+            <img class="photo-item" src="صوره 2.jpg" alt="Photo">
+            <video class="video-item" autoplay loop muted>
+                <source src="الفيديو.mp4" type="video/mp4">
+            </video>
+            <!-- أضف المزيد -->
+        </div>
+        <!-- Floating Elements -->
+        <div class="floating-element heart" style="top: 40%; left: 20%;">♥</div>
+        <div class="floating-element balloon" style="top: 50%; right: 15%;">🎈</div>
+        <div class="floating-element sparkle" style="top: 60%; left: 10%;">✨</div>
+        <!-- Confetti Particles -->
+        <div class="particle" style="top: 20%; left: 50%;"></div>
+        <div class="particle" style="top: 30%; left: 60%;"></div>
+        <div class="particle" style="top: 40%; left: 40%;"></div>
+        <!-- Envelope -->
+        <div id="envelope">
+            <div id="envelope-label">Click here</div>
+        </div>
+        <!-- Message -->
+        <div id="message">
+            <br>بنوتي الحلوة وقريبًا مراتي إن شاء الله ♥️🫂
+السنة الجديدة جاية وأنا قلبي مطمّن، مش عشان الدنيا سهلة، لا… عشان أنا وإنتِ مع بعض، وده أكبر ضمان لأي حاجة حلوة جاية.
+أنا شايفك في مستقبلي بوضوح، شايف بيتنا، وضحكتك فيه، وصوتك وإحنا بنتكلم عن يومنا، شايف تفاصيل كتير قوي ومتاكد إنها هتحصل مهما الطريق كان طويل.
+
+السنة دي مش مجرد سنة جديدة، دي سنة بنقرب فيها خطوة حقيقية من إننا نبقى مع بعض رسمي، قدام الدنيا كلها.
+أنا داخلها وأنا واخد قرار جوا قلبي قبل أي حاجة: إنك اختياري، وإنك شريكتي، وإن مفيش حاجة هتقف قدام إني أوصل للحظة اللي أقولك فيها “إنتِ مراتي”.
+
+أوعدك إني هعمل كل اللي أقدر عليه، وهضغط على نفسي، وهتعب، وأستحمل، عشان اليوم اللي نمسك فيه إيد بعض ونبقى بيت واحد يبقى حقيقة مش حلم.
+مش مهم قد إيه الطريق صعب، المهم إن نهايته إنتِ، وإن كل خطوة فيه بتقربني منك.
+
+نفسي السنة دي تكون سنة ترتيب حياتنا، سنة نكبر فيها، نفهم بعض أكتر، ونبني أساس قوي لبيتنا اللي جاي.
+نفسي لما نتجوز ونفتكر الأيام دي نضحك ونقول “الحمد لله إننا استحملنا عشان اللحظة دي”.
+
+أنا مش بوعدك بكلام حلو وخلاص، أنا بوعدك بمجهود، وبنية صافية، وبقلب عايزك زوجة ليه قبل أي حاجة تانية.
+بوعدك إني أكون الراجل اللي يطمنك، اللي يحميكي، اللي يفرح لفرحك، ويشيل عنك أي هم، ويخليكي دايمًا حاسة بالأمان.
+
+إنتِ مش بس حبيبتي، إنتِ مراتي اللي جاية، وأم عيالي، والبيت اللي هرجع له وأنا مطمّن.
+والسنة الجديدة دي بداية العد التنازلي لأحلى خطوة في حياتنا.
+
+ربنا يكرمنا، ويقرب المسافات، ويجمعنا على خير قريب،
+وتبقي دايمًا جنبي، وأنا دايمًا أكون سندك وضهرك،
+لحد ما اليوم اللي نستناه ييجي ونبقى مع بعض رسمي قدام الكل ♥️🫂
+
+كل سنة وإنتِ أقرب لقلبي،
+وكل سنة وإنتِ خطوة أقرب إنك تبقي مراتي ❤️ </br>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="song" loop>
+        <source src="تملي معاك.mp3" type="audio/mpeg">
+        <!-- استبدل برابط الأغنية الحقيقي -->
+    </audio>
+
+    <script>
+        const startButton = document.getElementById('start-button');
+        const countdownSection = document.getElementById('countdown-section');
+        const surpriseButton = document.getElementById('surprise-button');
+        const celebrationSection = document.getElementById('celebration-section');
+        const envelope = document.getElementById('envelope');
+        const message = document.getElementById('message');
+        const song = document.getElementById('song');
+
+        // Start Button Click
+        startButton.addEventListener('click', () => {
+            document.getElementById('landing-section').style.display = 'none';
+            countdownSection.style.display = 'block';
+            song.play();
+            startCountdown();
+        });
+
+        // Countdown Function
+        function startCountdown() {
+            const targetDate = new Date('January 1, 2026 00:00:00').getTime();
+            const timer = document.getElementById('countdown-timer');
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    timer.innerHTML = 'هابي نيو يير ياقطوستي';
+                    surpriseButton.style.display = 'block';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timer.innerHTML = `${days} يوم ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+            }, 1000);
+        }
+
+        // Surprise Button Click
+        surpriseButton.addEventListener('click', () => {
+            countdownSection.style.display = 'none';
+            surpriseButton.style.display = 'none';
+            celebrationSection.style.display = 'block';
+            // اختياري: تغيير الأغنية
+            // song.src = 'new-romantic-song.mp3';
+            // song.play();
+        });
+
+        // Envelope Click
+        envelope.addEventListener('click', () => {
+            envelope.style.display = 'none';
+            message.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
